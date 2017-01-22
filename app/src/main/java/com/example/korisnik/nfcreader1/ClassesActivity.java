@@ -1,7 +1,11 @@
 package com.example.korisnik.nfcreader1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -40,6 +44,18 @@ public class ClassesActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         myListView = (ListView) findViewById(R.id.ListView);
+        myListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(ClassesActivity.this, MainActivity.class);
+                intent.putExtra("Predmet", DataStorage.classes.get(i) );
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         if (user != null) {
             uid = user.getUid();
@@ -51,10 +67,13 @@ public class ClassesActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 String x = dataSnapshot.getKey().toString().replace(" ", "");
-                if ( !x.equals("name") ) {
+                if (!x.equals("name")) {
                     DataStorage.classes.put(i++, dataSnapshot.child("name").getValue().toString());
-                } else
+                } else {
+                    //
                     myListView.setAdapter(new MyAdapter(getApplicationContext()));
+                    Log.d("CLASSES", "after setAdapter!");
+                }
             }
 
             @Override
