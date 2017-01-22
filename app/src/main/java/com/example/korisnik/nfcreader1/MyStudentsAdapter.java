@@ -34,8 +34,10 @@ public class MyStudentsAdapter extends BaseAdapter{
             view = myInflater.inflate(R.layout.item,
                     viewGroup, false);
 
-        final TextView name = (TextView) view.findViewById(R.id.textView);
-        name.setText(DataStorage.classes.get(i).toString());
+        final TextView name = (TextView) view.findViewById(R.id.textView1);
+        name.setText(DataStorage.allStudents.get(i).toString());
+        if (DataStorage.students.containsValue(DataStorage.allStudentsID.get(i).toString()))
+            name.setBackgroundColor(0x00ff00);
         return view;
     }
 
