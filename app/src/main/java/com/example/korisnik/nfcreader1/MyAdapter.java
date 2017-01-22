@@ -1,10 +1,12 @@
 package com.example.korisnik.nfcreader1;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -12,6 +14,9 @@ import android.widget.TextView;
  */
 
 public class MyAdapter extends BaseAdapter{
+
+
+
 
     private Context myContext;
     private LayoutInflater myInflater;
@@ -24,7 +29,9 @@ public class MyAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 0;
+
+        return DataStorage.classes.size();
+
     }
 
     @Override
@@ -46,5 +53,6 @@ public class MyAdapter extends BaseAdapter{
         final TextView name = (TextView) view.findViewById(R.id.textView);
         name.setText(DataStorage.classes.get(i).toString());
         return view;
+
     }
 }
