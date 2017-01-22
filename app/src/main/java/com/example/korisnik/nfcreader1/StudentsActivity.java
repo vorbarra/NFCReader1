@@ -38,7 +38,7 @@ public class StudentsActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String cid = extras.getString("Predmet");
+            cid = extras.getString("Predmet");
         }
 
         database = FirebaseDatabase.getInstance();
@@ -59,11 +59,12 @@ public class StudentsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot data : dataSnapshot.getChildren()){
-                    DataStorage.allStudents.put(i++, dataSnapshot.child("name").getValue().toString());
-                    DataStorage.allStudentsID.put(i++, dataSnapshot.getKey().toString());
+                    Log.e ("STUDENTS", data.toString());
+                    DataStorage.allStudents.put(i, data.child("name").getValue().toString());
+                    DataStorage.allStudentsID.put(i++, data.getKey().toString());
                 }
                 myListView.setAdapter(new MyStudentsAdapter(getApplicationContext()));
-                Log.d("CLASSES", "after setAdapter!");
+                Log.d("Students", "after setAdapter!");
             }
 
             @Override
@@ -71,6 +72,8 @@ public class StudentsActivity extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
-
+        for(int j = 0; j< DataStorage.students.size(); j++){
+            myRef.child(DataStorage.students.get(j)).child("evid").setValue(1);
+        }
     }
 }

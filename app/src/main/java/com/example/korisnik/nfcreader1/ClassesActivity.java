@@ -49,11 +49,21 @@ public class ClassesActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ClassesActivity.this, MainActivity.class);
                 intent.putExtra("Predmet", DataStorage.classes.get(i) );
+                ClassesActivity.this.startActivity(intent);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(ClassesActivity.this, MainActivity.class);
+                intent.putExtra("Predmet", DataStorage.classesId.get(i) );
+                ClassesActivity.this.startActivity(intent);
             }
         });
 
@@ -68,7 +78,8 @@ public class ClassesActivity extends AppCompatActivity {
 
                 String x = dataSnapshot.getKey().toString().replace(" ", "");
                 if (!x.equals("name")) {
-                    DataStorage.classes.put(i++, dataSnapshot.child("name").getValue().toString());
+                    DataStorage.classes.put(i, dataSnapshot.child("name").getValue().toString());
+                    DataStorage.classesId.put(i++,dataSnapshot.getKey().toString());
                 } else {
                     //
                     myListView.setAdapter(new MyAdapter(getApplicationContext()));

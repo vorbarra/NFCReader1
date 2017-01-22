@@ -24,14 +24,14 @@ public class MyStudentsAdapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return DataStorage.students.size();
+        return DataStorage.allStudents.size();
     }
 
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null)
-            view = myInflater.inflate(R.layout.item,
+            view = myInflater.inflate(R.layout.student_item,
                     viewGroup, false);
 
         final TextView name = (TextView) view.findViewById(R.id.textView1);
