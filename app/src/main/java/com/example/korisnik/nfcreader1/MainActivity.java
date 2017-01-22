@@ -17,6 +17,7 @@ import be.appfoundry.nfclibrary.utilities.sync.NfcReadUtilityImpl;
 public class MainActivity extends NfcActivity {
 
     private String cid;
+    private int i=0;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -60,6 +61,7 @@ public class MainActivity extends NfcActivity {
         Tag myTag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         String tagValue=bytesToHex(myTag.getId()).toString();
 
+        DataStorage.students.put(i++, tagValue);
         LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
         TextView txtV = new TextView(MainActivity.this);
         txtV.setText(tagValue);
